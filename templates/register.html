@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Welcome to the Learning Platform</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+        background-image: url('https://img.freepik.com/free-vector/grunge-watercolor-background-using-pastel-colours_1048-6530.jpg?w=740&t=st=1694341998~exp=1694342598~hmac=fb43c3828dc378eb1599134a707771b82a9e112a75710a322f61c2cc0e1f9887');
+        height: 100vh;
+        background-size: cover;
+        background-position: center;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    *{
+        padding:5px;
+        margin:10px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+    <div class="col-sm-8">
+        <h1>Welcome to Our Learning Platform</h1>
+        <h2>Register form</h2>
+            <form action="/register" method="POST">
+                <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
+                </div>
+                
+                <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                </div>
+
+                <div class="form-group">
+                <label for="pwd">Password:</label>
+                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password">
+                </div>
+
+                <button type="submit" class="btn btn-dark">Submit</button>
+                <button><a href="/login" class="btn btn-primary">Login</a></button>
+            </form>
+    </div>
+</div>
+</body>
+</html>

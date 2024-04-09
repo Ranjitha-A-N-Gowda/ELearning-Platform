@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="../static/css/indexpage.css">
+    <style>
+        body {
+            background-image: url('https://img.freepik.com/free-vector/grunge-watercolor-background-using-pastel-colours_1048-6530.jpg?w=740&t=st=1694341998~exp=1694342598~hmac=fb43c3828dc378eb1599134a707771b82a9e112a75710a322f61c2cc0e1f9887');
+            background-size: cover;
+            height: 100vh;
+        }
+
+        .search-bar {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .search-input {
+            padding: 10px;
+            width: 300px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+        }
+
+        .search-btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: white;">Welcome to the Student Dashboard</h1>
+    
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search for courses...">
+        <button class="search-btn" onclick="searchCourses()">Search</button>
+    </div>
+    
+    <div class="container">
+        {% for course in courses %}
+        <div class="course">
+            <h3>{{ course.name }}</h3>
+            <img src="../static/images/course.jpg" alt="Course">
+            <br>
+            <p>Price: {{ course.price }}</p>
+            <p>Duration: {{ course.duration }} weeks</p>
+            <button class="subscribe-btn" onclick="toggleSubscribe(this)">Subscribe</button>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        function toggleSubscribe(button) {
+            if (button.innerText === 'Subscribe') {
+                button.innerText = 'Subscribed';
+            } else {
+                button.innerText = 'Subscribe';
+            }
+        }
+
+        function searchCourses() {
+            var input, filter, courses, course, i, txtValue;
+            input = document.getElementById('searchInput');
+            filter = input.value.toUpperCase();
+            courses = document.getElementsByClassName('course');
+
+            for (i = 0; i < courses.length; i++) {
+                course = courses[i];
+                txtValue = course.textContent || course.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    course.style.display = '';
+                } else {
+                    course.style.display = 'none';
+                }
+            }
+        }
+    </script>
+</body>
+</html>

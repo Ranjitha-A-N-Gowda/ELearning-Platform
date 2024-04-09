@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard</title>
+    <link rel="stylesheet" href="../static/css/indexpage.css">
+    <style>
+        body {
+            background-image: url('https://img.freepik.com/free-vector/grunge-watercolor-background-using-pastel-colours_1048-6530.jpg?w=740&t=st=1694341998~exp=1694342598~hmac=fb43c3828dc378eb1599134a707771b82a9e112a75710a322f61c2cc0e1f9887');
+            background-size: cover;
+            height: 100vh;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100%;
+        }
+        .course-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .course {
+            position: relative;
+            margin: 10px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        .course img {
+            width: 100%;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .delete-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .delete-button:hover {
+            background-color: #cc0000;
+        }
+        .add-course-form {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .add-course-form input {
+            margin: 5px;
+            padding: 5px;
+            width: 200px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .add-course-form button {
+            padding: 5px 10px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .add-course-form button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3>Add new course by the given form</h3>
+        <form class="add-course-form" action="/add_course" method="post">
+            <input type="text" name="name" placeholder="Course name" required>
+            <input type="number" name="price" placeholder="Price" required>
+            <input type="number" name="duration" placeholder="Duration (weeks)" required>
+            <button type="submit">Add Course</button>
+        </form>
+        
+        <h3>The existing Courses are</h3>
+        <div class="course-container">
+            {% for course in courses %}
+            <div class="course">
+                <button class="delete-button" onclick="deleteCourse('{{ course.id }}')">Delete</button>
+                <h3>{{ course.name }}</h3>
+                <img src="../static/images/course.jpg" alt="Course">
+                <br>
+                <p>Price: {{ course.price }}</p>
+                <p>Duration: {{ course.duration }} weeks</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <script>
+        function deleteCourse(courseId) {
+            // Send a request to delete the course with the given ID
+            // You can use JavaScript's Fetch API or other methods to send an AJAX request
+            // For example:
+            fetch('/delete_course/' + courseId, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ courseId: courseId })
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Reload the page after deletion
+                    location.reload();
+                } else {
+                    console.error('Failed to delete course');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
